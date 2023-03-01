@@ -1,6 +1,5 @@
 <script lang="ts">
 	import '../../styles.css';
-	import WhiteCard from '$lib/WhiteCard.svelte';
 	import BlackCard from '$lib/BlackCard.svelte';
 	import Hand from '$lib/Hand.svelte';
 	import type { PageData } from './$types';
