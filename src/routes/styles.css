@@ -1,11 +1,13 @@
 @import '@fontsource/fira-mono';
 
 :root {
-	--orange: #FF6700;
-	--gray-1: #EBEBEB;
-	--gray-2: #C0C0C0;
-	--blue-1: #3A6EA5;
-	--blue-2: #004E98;	
+	--orange: #ff6700;
+	--gray-1: #ebebeb;
+	--gray-2: #c0c0c0;
+	--blue-1: #3a6ea5;
+	--blue-2: #004e98;
+
+	--card-height: 22vh;
 }
 
 body {

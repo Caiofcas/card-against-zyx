@@ -2,33 +2,18 @@
 	import '../../styles.css';
 	import BlackCard from '$lib/BlackCard.svelte';
 	import Hand from '$lib/Hand.svelte';
+	import DisabledHand from '$lib/DisabledHand.svelte';
+	import { getHand } from '$lib/utils';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
 
-	export let my_hand = [
-		{ text: 'asdad', selected: false },
-		{ text: 'asdad', selected: false },
-		{ text: 'asdad', selected: false },
-		{ text: 'asdadada', selected: false },
-		{ text: 'saadasds', selected: false }
-	];
+	let user = {
+		is_czar: false
+	};
 
+	let hand = getHand(user);
 	let max_selected = 2;
-	let current_selected = 0;
-
-	function handleClick(i: number) {
-		if (!my_hand[i].selected) {
-			if (current_selected >= max_selected) {
-				return;
-			} else {
-				current_selected += 1;
-			}
-		} else {
-			current_selected -= 1;
-		}
-		my_hand[i].selected = !my_hand[i].selected;
-	}
 </script>
 
 <svelte:head>
@@ -37,8 +22,37 @@
 
 <h1>Room {data.room_number}</h1>
 
-<BlackCard />
+{#if user.is_czar}
+	<div class="czar_text">
+		<span> You are the czar, select one of the cards choosen by the other players: </span>
+	</div>
+	<div class="czar_row">
+		<BlackCard />
+		<div class="czar_text">
+			<span> <i> Players are still selecting. </i> </span>
+		</div>
+	</div>
+	<DisabledHand />
+{:else}
+	<BlackCard />
+	<br />
+	<Hand {hand} {max_selected} />
+{/if}
 
-<br />
+<style>
+	.czar_row {
+		display: flex;
+		flex-direction: row;
+		height: auto;
+		/* border: solid 3px black; */
+	}
 
-<Hand />
+	.czar_text {
+		font-weight: 600;
+		font-size: x-large;
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		margin: auto;
+	}
+</style>
