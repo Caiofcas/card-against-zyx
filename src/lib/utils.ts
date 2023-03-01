@@ -17,3 +17,7 @@ export const getHand = (user: IUser): IHandCard[] => {
 		{ text: 'saadasds', selected: false },
 	];
 };
+
+export interface IHTMLElement extends HTMLElement {
+	tabIndex: number;
+}
