@@ -13,8 +13,8 @@
 	</div>
 
 	<div class="options">
-		<button class="option-btn">Create New Room</button>
-		<button class="option-btn">Join Existing Room</button>
+		<a href="/create_room" class="option-card">Create New Room</a>
+		<a href="/join_room" class="option-card">Join Existing Room</a>
 	</div>
 </section>
 
@@ -31,13 +31,21 @@
 		margin: auto;
 	}
 
-	.option-btn {
+	.option-card {
+		/* size */
 		flex: 1;
 		max-width: 200px;
 		height: 20vh;
+
 		border: 0;
 		border-radius: 16px;
 		margin: 10px;
+
+		/* styling */
 		background-color: var(--gray-2);
+		line-height: 20vh;
+		text-align: center;
+		text-decoration: none;
+		color: black;
 	}
 </style>
