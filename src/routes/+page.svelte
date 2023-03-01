@@ -1,7 +1,5 @@
 <script>
-	import Counter from './Counter.svelte';
-	import welcome from '$lib/images/svelte-welcome.webp';
-	import welcome_fallback from '$lib/images/svelte-welcome.png';
+	import './styles.css';
 </script>
 
 <svelte:head>
@@ -9,51 +7,37 @@
 	<meta name="description" content="Svelte demo app" />
 </svelte:head>
 
-<section>
-	<h1>
-		<span class="welcome">
-			<picture>
-				<source srcset={welcome} type="image/webp" />
-				<img src={welcome_fallback} alt="Welcome" />
-			</picture>
-		</span>
+<section class="main">
+	<div class="title">
+		<h1>Cards Against ZYX</h1>
+	</div>
 
-		to your new<br />SvelteKit app
-	</h1>
-
-	<h2>
-		try editing <strong>src/routes/+page.svelte</strong>
-	</h2>
-
-	<Counter />
+	<div class="options">
+		<button class="option-btn">Create New Room</button>
+		<button class="option-btn">Join Existing Room</button>
+	</div>
 </section>
 
 <style>
-	section {
+	.title {
+		width: 100%;
+		text-align: center;
+	}
+
+	.options {
 		display: flex;
-		flex-direction: column;
 		justify-content: center;
-		align-items: center;
-		flex: 0.6;
+		width: 80%;
+		margin: auto;
 	}
 
-	h1 {
-		width: 100%;
-	}
-
-	.welcome {
-		display: block;
-		position: relative;
-		width: 100%;
-		height: 0;
-		padding: 0 0 calc(100% * 495 / 2048) 0;
-	}
-
-	.welcome img {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		display: block;
+	.option-btn {
+		flex: 1;
+		max-width: 200px;
+		height: 20vh;
+		border: 0;
+		border-radius: 16px;
+		margin: 10px;
+		background-color: var(--gray-2);
 	}
 </style>
