@@ -18,7 +18,6 @@
 	function openAlert() {
 		showAlert = true;
 	}
-
 </script>
 
 <button on:click={openAlert}> Cria Usuário </button>

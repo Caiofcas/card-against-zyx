@@ -59,15 +59,13 @@ class Match(TimeStampedModel):
             return False
 
         # change czar
-        self.current_czar_idx = (
-            self.current_czar_idx + 1
-        ) % len(self.czar_order)
+        self.current_czar_idx = (self.current_czar_idx + 1) % len(self.czar_order)
 
         # change black card
         next_card = random.choice(
-            Card.objects
-                .filter(sets__in=self.available_sets)
-                .exclude(id__in=self.previous_black_cards)
+            Card.objects.filter(sets__in=self.available_sets).exclude(
+                id__in=self.previous_black_cards
+            )
         )
         self.previous_black_cards.append(self.current_black_card)
         self.current_black_card = next_card

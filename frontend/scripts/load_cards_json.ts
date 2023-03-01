@@ -39,8 +39,8 @@ const cards_fn = args[2];
 const packs: Pack[] = JSON.parse(fs.readFileSync(cards_fn).toString());
 
 function removeDuplicates<T extends { text: string }>(cards: T[]): T[] {
-	let set = new Set();
-	let filteredCards: typeof cards = [];
+	const set = new Set();
+	const filteredCards: typeof cards = [];
 
 	cards.forEach((cur_card) => {
 		if (set.has(cur_card.text)) {

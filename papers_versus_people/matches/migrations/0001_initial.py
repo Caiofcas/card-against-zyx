@@ -9,49 +9,110 @@ import model_utils.fields
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('cards', '0001_initial'),
+        ("cards", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Match',
+            name="Match",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created', model_utils.fields.AutoCreatedField(default=django.utils.timezone.now, editable=False, verbose_name='created')),
-                ('modified', model_utils.fields.AutoLastModifiedField(default=django.utils.timezone.now, editable=False, verbose_name='modified')),
-                ('czar_order', django.contrib.postgres.fields.ArrayField(base_field=models.PositiveIntegerField(), size=None)),
-                ('current_czar_idx', models.PositiveSmallIntegerField(default=0)),
-                ('current_round', models.PositiveSmallIntegerField(default=1)),
-                ('max_rounds', models.PositiveSmallIntegerField(default=200)),
-                ('previous_black_cards', django.contrib.postgres.fields.ArrayField(base_field=models.PositiveIntegerField(), default=list, size=None)),
-                ('available_sets', models.ManyToManyField(to='cards.cardset')),
-                ('current_black_card', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='cards.card')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "created",
+                    model_utils.fields.AutoCreatedField(
+                        default=django.utils.timezone.now,
+                        editable=False,
+                        verbose_name="created",
+                    ),
+                ),
+                (
+                    "modified",
+                    model_utils.fields.AutoLastModifiedField(
+                        default=django.utils.timezone.now,
+                        editable=False,
+                        verbose_name="modified",
+                    ),
+                ),
+                (
+                    "czar_order",
+                    django.contrib.postgres.fields.ArrayField(
+                        base_field=models.PositiveIntegerField(), size=None
+                    ),
+                ),
+                ("current_czar_idx", models.PositiveSmallIntegerField(default=0)),
+                ("current_round", models.PositiveSmallIntegerField(default=1)),
+                ("max_rounds", models.PositiveSmallIntegerField(default=200)),
+                (
+                    "previous_black_cards",
+                    django.contrib.postgres.fields.ArrayField(
+                        base_field=models.PositiveIntegerField(),
+                        default=list,
+                        size=None,
+                    ),
+                ),
+                ("available_sets", models.ManyToManyField(to="cards.cardset")),
+                (
+                    "current_black_card",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="cards.card"
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='PlayerInMatch',
+            name="PlayerInMatch",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('hand', models.ManyToManyField(to='cards.card')),
-                ('match', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='matches.match')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("hand", models.ManyToManyField(to="cards.card")),
+                (
+                    "match",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="matches.match"
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
         migrations.AddField(
-            model_name='match',
-            name='players',
-            field=models.ManyToManyField(through='matches.PlayerInMatch', to=settings.AUTH_USER_MODEL),
+            model_name="match",
+            name="players",
+            field=models.ManyToManyField(
+                through="matches.PlayerInMatch", to=settings.AUTH_USER_MODEL
+            ),
         ),
         migrations.AddConstraint(
-            model_name='playerinmatch',
-            constraint=models.UniqueConstraint(fields=('user', 'match'), name='user_can_only_be_in_match_once'),
+            model_name="playerinmatch",
+            constraint=models.UniqueConstraint(
+                fields=("user", "match"), name="user_can_only_be_in_match_once"
+            ),
         ),
     ]

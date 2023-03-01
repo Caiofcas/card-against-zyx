@@ -3,7 +3,7 @@ from django.utils.translation import gettext_lazy as _
 from model_utils import Choices
 
 
-CARD_COLORS = Choices((0, 'black', _('black')), (1, 'white', _('white')))
+CARD_COLORS = Choices((0, "black", _("black")), (1, "white", _("white")))
 
 
 class CardSet(models.Model):

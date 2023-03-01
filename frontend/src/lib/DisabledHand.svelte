@@ -1,5 +1,5 @@
 <script lang="ts">
-	import DisabledCard from "./DisabledCard.svelte";
+	import DisabledCard from './DisabledCard.svelte';
 
 	export let hand_size = 6;
 </script>

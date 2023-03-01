@@ -14,7 +14,7 @@ export const getHand = (user: IUser): IHandCard[] => {
 		{ text: 'asdad', selected: false },
 		{ text: 'asdadada', selected: false },
 		{ text: 'saadasds', selected: false },
-		{ text: 'saadasds', selected: false },
+		{ text: 'saadasds', selected: false }
 	];
 };
 
