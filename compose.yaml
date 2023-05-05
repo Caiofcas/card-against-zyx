@@ -1,0 +1,45 @@
+version: '3.7'
+
+services:
+  # Backend server (Django)
+  django:
+    container_name: backend
+    command: gunicorn --chdir ./papers_versus_people/ --bind :8000 --reload --workers 2 papers_versus_people.wsgi
+    build:
+      dockerfile: papers_versus_people/Dockerfile
+      context: .
+    volumes:
+      - ./papers_versus_people:/app/papers_versus_people
+    ports:
+      - '8000:8000'
+    depends_on:
+      - postgres_db
+
+  postgres_db:
+    container_name: postgres
+    image: postgres:12.7
+    ports:
+      - '5432:5432'
+    restart: 'always'
+    env_file:
+      - .env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+      - ./postgres_db:/docker-entrypoint-initdb.d/
+
+  svelte:
+    container_name: frontend
+    command: npm run dev
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    volumes:
+      - ./frontend:/app/
+    ports:
+      - '5173:5173'
+    depends_on:
+      - postgres_db
+      - django
+
+volumes:
+  postgres_data:
