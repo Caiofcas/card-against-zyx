@@ -12,7 +12,7 @@ FRONTEND_DIR = Path(ROOT_DIR, "frontend")
 
 # Read .env file
 env = Env()
-Env.read_env(Path(ROOT_DIR, "..", ".env"))
+Env.read_env(Path(ROOT_DIR, ".env"))
 
 
 # General configuration
