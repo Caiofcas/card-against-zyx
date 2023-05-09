@@ -43,11 +43,10 @@ class Match(TimeStampedModel):
     available_sets = models.ManyToManyField("cards.CardSet")
     players = models.ManyToManyField(User, through="PlayerInMatch")
 
-    czar_order = fields.ArrayField(models.PositiveIntegerField())
+    czar_order = fields.ArrayField(models.PositiveIntegerField(), default=list)
     current_czar_idx = models.PositiveSmallIntegerField(default=0)
 
     current_round = models.PositiveSmallIntegerField(default=1)
-    max_rounds = models.PositiveSmallIntegerField(default=200)
 
     winning_score = models.PositiveSmallIntegerField(default=7)
     winner = models.OneToOneField(
@@ -58,7 +57,12 @@ class Match(TimeStampedModel):
         related_name="winning_match",
     )
 
-    current_black_card = models.ForeignKey("cards.Card", on_delete=models.PROTECT)
+    current_black_card = models.ForeignKey(
+        "cards.Card",
+        on_delete=models.PROTECT,
+        default=None,
+        null=True,
+    )
     previous_black_cards = fields.ArrayField(
         models.PositiveIntegerField(),
         default=list,
@@ -71,26 +75,29 @@ class Match(TimeStampedModel):
     def possible_cards(self, color: CARD_COLORS = CARD_COLORS.white):
         return Card.objects.filter(sets__in=self.available_sets, color=color)
 
+    def update_black_card(self):
+        next_card = random.choice(
+            self.possible_cards(CARD_COLORS.black).exclude(
+                id__in=self.previous_black_cards
+            )
+        )
+        # Deal with first round
+        if self.current_black_card is not None:
+            self.previous_black_cards.append(self.current_black_card)
+
+        self.current_black_card = next_card
+
     def go_to_next_round(self) -> bool:
         """Returns if should continue match"""
 
         # increment round counter
         self.current_round += 1
 
-        if self.current_round >= self.max_rounds:
-            return False
-
         # change czar
         self.current_czar_idx = (self.current_czar_idx + 1) % len(self.czar_order)
 
         # change black card
-        next_card = random.choice(
-            self.possible_cards(CARD_COLORS.black).exclude(
-                id__in=self.previous_black_cards
-            )
-        )
-        self.previous_black_cards.append(self.current_black_card)
-        self.current_black_card = next_card
+        self.update_black_card()
 
         self.save()
 

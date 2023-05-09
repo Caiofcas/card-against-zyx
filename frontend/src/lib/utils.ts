@@ -1,3 +1,5 @@
+import axios, { AxiosError } from 'axios';
+
 export interface IHandCard {
 	text: string;
 	selected: boolean;
@@ -20,4 +22,8 @@ export const getHand = (user: IUser): IHandCard[] => {
 
 export interface IHTMLElement extends HTMLElement {
 	tabIndex: number;
+}
+
+export function isAxiosError<ResponseType>(error: unknown): error is AxiosError<ResponseType> {
+	return axios.isAxiosError(error);
 }

@@ -23,6 +23,7 @@ class RawCardSet(TypedDict):
     official: bool
 
 
+# TODO: add some cli feedback
 class Command(BaseCommand):
     def add_arguments(self, parser: CommandParser) -> None:
         parser.add_argument(
