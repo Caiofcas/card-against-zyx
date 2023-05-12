@@ -31,7 +31,7 @@ export const actions = {
 
 		if (treated_data.available_sets.length == 0) {
 			return fail(400, {
-				error: 'Must select at least one card set'
+				error: { message: 'Must select at least one card set' }
 			});
 		}
 
@@ -49,7 +49,7 @@ export const actions = {
 				// console.log(error.cause);
 				return fail(400, { errors: error.response?.data });
 			}
-			return { error };
+			return { error: { error, message: 'Unknown error' } };
 		}
 	}
 };
