@@ -1,27 +1,10 @@
 <script lang="ts">
-	import type { ActionData } from './$types';
+	import type { ActionData, PageServerData } from './$types';
 
 	export let form: ActionData;
+	export let data: PageServerData;
 
-	// TODO: recover from db
-	const card_sets = [
-		{
-			name: 'Teste 1',
-			id: 1
-		},
-		{
-			name: 'Teste 2',
-			id: 2
-		},
-		{
-			name: 'Teste 3',
-			id: 3
-		},
-		{
-			name: 'Teste 4',
-			id: 4
-		}
-	];
+	const card_sets = data.sets ?? [];
 </script>
 
 <svelte:head>
@@ -30,6 +13,10 @@
 
 {#if form?.error}
 	<p class="error">{form.error}</p>
+{/if}
+
+{#if data?.error}
+	<p class="error">{data.error}</p>
 {/if}
 
 <form method="POST">
