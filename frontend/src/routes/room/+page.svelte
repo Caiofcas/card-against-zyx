@@ -1,21 +1,16 @@
 <script lang="ts">
 	import type { ActionData, PageServerData } from './$types';
-	import Alert from '$lib/Alert.svelte';
+	import { addNotification } from '$lib/notifications';
 
 	export let form: ActionData;
 	export let data: PageServerData;
 
-	let alert_title = '';
-	const close = () => {
-		alert_title = '';
-	};
-
 	if (form?.error && form.error.message) {
-		alert_title = form.error.message;
+		addNotification({ text: form.error.message, is_error: true });
 	} else if (data?.error) {
-		alert_title = 'Error retrieving card sets';
+		addNotification({ text: 'Error retrieving card sets', is_error: true });
 	} else if (form?.success) {
-		alert_title = `Successfully created room ${form.room?.id}!`;
+		addNotification({ text: `Successfully created room ${form.room?.id}!`, is_error: false });
 	}
 
 	const card_sets = data.sets ?? [];
@@ -27,11 +22,8 @@
 
 <!-- TODOs
 	- add search for cardsets
-	- style alerts
-	- add positive and negative styles to alerts (do this on component)
+	- don't rerender on submit
 -->
-
-<Alert show={alert_title != ''} {close} title={alert_title} />
 
 <div class="form-container">
 	<h1>Create Room</h1>
