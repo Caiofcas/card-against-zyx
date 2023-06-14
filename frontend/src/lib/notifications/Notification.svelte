@@ -6,6 +6,7 @@
 
 	function handleClose() {
 		visible = false;
+		// TODO: remove notification from store if already shown
 	}
 </script>
 

@@ -14,7 +14,7 @@
 
 	<div class="options">
 		<a href="/room" class="option-card">Create New Room</a>
-		<a href="/join_room" class="option-card">Join Existing Room</a>
+		<a href="/login" class="option-card">Login</a>
 	</div>
 </section>
 
