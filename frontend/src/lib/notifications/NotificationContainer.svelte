@@ -1,11 +1,6 @@
 <script lang="ts">
 	import { notification_store } from './index';
 	import Notification from './Notification.svelte';
-	$notification_store = [
-		{ text: 'Teste' },
-		{ text: 'Teste 2' },
-		{ text: 'Teste Falha', is_error: true }
-	];
 </script>
 
 <div class="alerts-container" id="alerts-container">
