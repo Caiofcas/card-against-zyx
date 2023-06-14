@@ -1,12 +1,13 @@
 <script lang="ts">
 	import type { INotification } from './index';
+	import { removeNotification } from './index';
 	export let notification: INotification;
 
 	export let visible = true;
 
 	function handleClose() {
 		visible = false;
-		// TODO: remove notification from store if already shown
+		removeNotification(notification);
 	}
 </script>
 
